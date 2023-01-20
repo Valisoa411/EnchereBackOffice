@@ -124,7 +124,7 @@
           <div class="col-lg-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Moyenne : <strong>2 000 000 Ar</strong></h5>
+              <h5 class="card-title">Moyenne : <strong><div id="val2"></div></strong></h5>
               <p>Moyenne des commissions.</p>
             </div>
           </div>
@@ -159,6 +159,8 @@
                 console.log(a1.replace(" ","").replace("[","").replace("]","").replace(" ","").replace(" ","").split(",")[0]);
                 console.log(a2.replace(" ","").replace("[","").replace("]","").replace(" ","").replace(" ","").split(",")[0]);
 //                console.log(t);
+                document.getElementById("val").innerHTML=d1;
+                document.getElementById("val2").innerHTML=d2;
                 var data1 = [];
                 var data2 = [];
                 var data3 = [];
@@ -166,11 +168,11 @@
                 for(let index = 0; index < t; index++){
                     data1.push(a1.replace(" ","").replace("[","").replace("]","").replace(" ","").replace(" ","").split(",")[index]);
                     data2.push(parseFloat(a2.replace(" ","").replace("[","").replace("]","").replace(" ","").replace(" ","").split(",")[index]));
-                    data2.push(parseFloat(a2.replace(" ","").replace("[","").replace("]","").replace(" ","").replace(" ","").split(",")[index]) * 100);
-//                    console.log(a1.replace(" ","").replace("[","").replace("]","").replace(" ","").replace(" ","").split(",")[index]);
+                    data3.push(parseFloat(a2.replace(" ","").replace("[","").replace("]","").replace(" ","").replace(" ","").split(",")[index]) * 100);
+                    console.log(parseFloat(a2.replace(" ","").replace("[","").replace("]","").replace(" ","").replace(" ","").split(",")[index]) * 100);
                 }
                 
-                console.log(data3);
+                console.log("data3");
 
                 document.addEventListener("DOMContentLoaded", () => {
                   new ApexCharts(document.querySelector("#donutChart"), {
