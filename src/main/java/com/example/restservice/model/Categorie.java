@@ -96,20 +96,24 @@ public class Categorie {
                 Double count = resultSet.getDouble("count");
                 if(count==null)count=(double) 0;
                 N=N+count;
+                // System.out.println("getStatistic before : lib="+toAdd.libelle+" c="+count);
                 hashMap.put(toAdd.libelle, count);
+                // System.out.println(hashMap.size());
+                // System.out.println("getStatistic after : lib="+toAdd.libelle+" c="+count);
             }
             
-            for (Map.Entry<String, Double> entry : hashMap.entrySet()) {
-                String key = entry.getKey();
-                Double value = entry.getValue();
+            // for (Map.Entry<String, Double> entry : hashMap.entrySet()) {
+            //     String key = entry.getKey();
+            //     Double value = entry.getValue();
                 
-                System.out.println("N = "+N);
-                System.out.println("V: "+value);
-                value = value/N;
-                System.out.println(">>>> /"+N+" = "+value);
-                hashMap.replace(key, value);
+            //     // System.out.println("N = "+N);
+            //     // System.out.println("V: "+value);
+            //     // value = value/N;
+            //     // System.out.println(">>>> /"+N+" = "+value);
+            //     hashMap.replace(key, value);
                 
-            }
+            // }
+            System.out.println("hash size : "+hashMap.size());
             return hashMap;
             
 

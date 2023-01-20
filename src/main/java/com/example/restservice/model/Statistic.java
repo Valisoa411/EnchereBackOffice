@@ -9,10 +9,10 @@ import java.util.HashMap;
 
 public class Statistic {
 
-    public static HashMap<Categorie,Double> getChiffreAffaireByCategorie() throws Exception{
+    public static HashMap<String,Double> getChiffreAffaireByCategorie() throws Exception{
         Connection connection = null;
         try {
-            HashMap<Categorie,Double> stat = new HashMap<>();
+            HashMap<String,Double> stat = new HashMap<>();
             connection = Connexion.getConnexion();
             String sql = "SELECT * FROM v_all_recette_by_categorie";
             PreparedStatement psmt = connection.prepareStatement(sql);
@@ -22,7 +22,7 @@ public class Statistic {
                 categorie.setId(resultSet.getInt("id"));
                 categorie.setLibelle(resultSet.getString("libelle"));
                 Double valeur =  resultSet.getDouble("sum");
-                stat.put(categorie, valeur);
+                stat.put(categorie.libelle, valeur);
             }
 
             return stat;

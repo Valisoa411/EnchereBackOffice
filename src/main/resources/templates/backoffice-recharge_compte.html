@@ -145,10 +145,10 @@
                             <td>
                               <div class="row">
                                   <div class="col-lg-4">
-                                      <button type="button" class="btn btn-primary">Valider</button>
+                                      <a th:href="@{validerRC?id={id}(id=${rech.id})}"><button type="button" class="btn btn-primary">Valider</button></a>
                                   </div>
                                   <div class="col-lg-4">
-                                      <button type="button" class="btn btn-danger">Refuser</button>
+                                      <a th:href="@{refuserRC?id={id}(id=${rech.id})}"><button type="button" class="btn btn-danger">Refuser</button></a>
                                   </div>
                               </div>
                             </td>    

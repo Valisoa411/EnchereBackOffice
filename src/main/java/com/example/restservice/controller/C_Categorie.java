@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -31,10 +32,12 @@ public class C_Categorie {
     public void addCategorie(
             @PathVariable String libelle
     ) throws Exception {
+        System.out.println("ty le lalana");
         try (Connection con = Econnect.connexion()) {
             if (!libelle.equalsIgnoreCase("")) {
                 Categorie cat = new Categorie(libelle);
-                System.out.println(cat.getLibelle());
+                cat.setEtat(11);
+                System.out.println("addCategorie : "+cat.getEtat());
                 GenericDAO.save(cat, con);
             }
         } catch (Exception e) {

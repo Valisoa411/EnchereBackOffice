@@ -37,6 +37,7 @@ public class IndexControlleur {
     public String valider(@ModelAttribute Categorie c, Model m) throws Exception {
         System.out.println(c.toString());
         try (Connection con = Econnect.connexion()) {
+            c.setEtat(11);
             GenericDAO.save(c, con);
             ArrayList<Categorie> categorie = GenericDAO.findBySql(new Categorie(), "Select * from categorie where etat =0", con);
             for (Categorie cat : categorie) {
@@ -48,23 +49,42 @@ public class IndexControlleur {
         return "redirect:categorie";
     }
     
-    @GetMapping("/modifyCategorie")
+    @GetMapping("modifyCategorie")
     public String modifier(HttpServletRequest rq, Model m) throws Exception {
         System.out.println("Tafiditraa ato aloha !!! ");
+        System.out.println("---------");
         System.out.println(rq.getParameter("id"));
+        System.out.println(rq.getParameter("libelle"));
         try (Connection con = Econnect.connexion()) {
-            Categorie c = new Categorie(Integer.parseInt(rq.getParameter("id")), 1);
+            Categorie c = new Categorie();
             c.setId(Integer.parseInt(rq.getParameter("id")));
-            GenericDAO.update(new Categorie(Integer.parseInt(rq.getParameter("id")), 0), con);
-            ArrayList<Categorie> categorie = GenericDAO.findBySql(new Categorie(), "Select * from categorie where etat =0", con);
-            for (Categorie cat : categorie) {
-                m.addAttribute("list", Arrays.asList(categorie.toArray()));
-            }
+            c.setLibelle(rq.getParameter("libelle"));
+            c.setEtat(11);
+            GenericDAO.update(c, con);
         } catch (Exception e) {     
             e.printStackTrace();
         }
-        return "1";
+        return "redirect:categorie";
     }
+    
+    @GetMapping("supprCategorie")
+    public String supprCategorie(HttpServletRequest rq, Model m) throws Exception {
+        System.out.println("Tafiditraa ato aloha !!! ");
+        System.out.println("---------");
+        System.out.println(rq.getParameter("id"));
+        System.out.println(rq.getParameter("libelle"));
+        try (Connection con = Econnect.connexion()) {
+            Categorie c = new Categorie();
+            c.setId(Integer.parseInt(rq.getParameter("id")));
+            c.setLibelle(rq.getParameter("libelle"));
+            c.setEtat(1);
+            GenericDAO.update(c, con);
+        } catch (Exception e) {     
+            e.printStackTrace();
+        }
+        return "redirect:categorie";
+    }
+
 
     @GetMapping("/addCommission")
     public String addCommission(HttpServletRequest rq, Model m) throws Exception {
@@ -79,6 +99,26 @@ public class IndexControlleur {
         return "redirect:parametre";
     }
 
+    @GetMapping("validerRC")
+    public String valider(HttpServletRequest rq,Model m){
+        RechargeCompte r=new RechargeCompte(Integer.parseInt(rq.getParameter("id")));
+        try {
+            r.changeState(21, Econnect.connexion());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:rechargeCompte";
+    }
+    @GetMapping("refuserRC")
+    public String refuser(HttpServletRequest rq,Model m){
+        RechargeCompte r=new RechargeCompte(Integer.parseInt(rq.getParameter("id")));
+        try {
+            r.changeState(1, Econnect.connexion());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:rechargeCompte";
+    }
 //    @GetMapping("/getParametre")
 //    public String addParametre(HttpServletRequest rq, Model m) throws Exception {
 //        try (Connection con = Econnect.connexion()) {
@@ -157,12 +197,24 @@ public class IndexControlleur {
             array2.add(value);
         }
         
+        ArrayList array3 = new ArrayList();
+        ArrayList array4 = new ArrayList();
+        HashMap<String, Double> map0 = Statistic.getChiffreAffaireByCategorie();
+        for (Map.Entry<String, Double> entry : map0.entrySet()) {
+            String key = entry.getKey();
+            Double value = entry.getValue();
+            
+            array3.add(key);
+            array4.add(value);
+        }
+
         m.addAttribute("array1", array1);
         m.addAttribute("array2", array2);
+        m.addAttribute("array3", array3);
+        m.addAttribute("array4", array4);
         m.addAttribute("categorie", new Categorie().listeCategorie().size());
         m.addAttribute("don1", Statistic.getMoyenneChiffreAffaire());
         m.addAttribute("don2", Statistic.getSumChiffreAffaire());
-        System.out.println(new Categorie().listeCategorie().size());
         return "backoffice-statistic";
     }
 }

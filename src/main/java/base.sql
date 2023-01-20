@@ -10,6 +10,18 @@
 
 create database enchere ;
 
+DROP TABLE ADMIN CASCADE;
+DROP TABLE ADMINTOKEN CASCADE;
+DROP TABLE CATEGORIE CASCADE;
+DROP TABLE CLIENT CASCADE;
+DROP TABLE ENCHERE CASCADE;
+DROP TABLE ENCHEREIMAGE CASCADE;
+DROP TABLE PARAMETRE CASCADE;
+DROP TABLE PROPOSITION CASCADE;
+DROP TABLE RECHARGECOMPTE CASCADE;
+DROP TABLE TOKEN CASCADE;
+DROP TABLE COMMISSION CASCADE;
+
 CREATE TABLE Admin (
 	id SERIAL NOT NULL, 
 	email varchar(255), 
@@ -25,7 +37,7 @@ CREATE TABLE AdminToken (
 CREATE TABLE Categorie (
 	id SERIAL NOT NULL, 
 	libelle varchar(100), 
-        etat int,
+        etat int DEFAULT 11,
 	PRIMARY KEY (id)
 );
 
@@ -66,8 +78,7 @@ CREATE TABLE Parametre (
 INSERT INTO Parametre(libelle,valeur) 
 VALUES
     ('Duree Minimum', 3),
-    ('Duree Maximum', 24),
-    ('Commission', 10);
+    ('Duree Maximum', 24);
 
 CREATE TABLE Proposition (
 	id SERIAL NOT NULL, 
@@ -97,7 +108,8 @@ create table commission(
 	commission real default 0,
 	"date" date default now()
 );
-insert into commission values(default,default),(default,default;
+insert into commission values(default,5,'1-20-2023 21:00'),
+(default,10,default);
 
 ALTER TABLE AdminToken ADD CONSTRAINT FKAdminToken60296 FOREIGN KEY (idAdmin) REFERENCES Admin (id);
 ALTER TABLE Token ADD CONSTRAINT FKToken783363 FOREIGN KEY (idClient) REFERENCES Client (id);

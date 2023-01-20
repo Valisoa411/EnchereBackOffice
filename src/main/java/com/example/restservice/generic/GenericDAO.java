@@ -128,10 +128,10 @@ public class GenericDAO {
                 Object v = values.get(i);
                 if(v != null){
                     val += col+"='"+v.toString()+"'";
-                }
-                if(i != values.size()-1){
-                    // val += ",";
-                    val += " ";
+                    if(i != values.size()-1){
+                        val += ",";
+                        // val += " ";
+                    }
                 }
             }
             sql = "UPDATE "+table+" SET "+val+" WHERE "+primCol+"='"+primValues.toString()+"'";
