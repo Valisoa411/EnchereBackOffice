@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+
+</html>
+
+<head>
+    <title>index </title>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <h1>Insertion Categorie </h1>
+    <form th:action="addCategorie" th:method="post" th:object="${categorie}">
+        <label for="categorie">Categorie</label>
+        <input type="text" th:field="*{libelle}">
+        <input type="submit" value="Valider">
+    </form>
+    <div class="panel panel-default">
+        <div class="panel-heading"></div>
+
+            <table border="1">
+
+                <thead>
+                    <tr>
+                        <th>Categorie</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="categorie: ${list}">
+                        <!-- <form action="modifyCategorie"> -->
+                            
+                        <td><input type="text" name="libelle" th:value="${categorie.libelle}"> </td>
+                        <td><input type="text" name="id" th:value="${categorie.id}"> </td>
+                        <td>
+                            <!-- <form th:action="modifyCategorie" th:method="get"> -->
+                                <button><a th:href="@{modifyCategorie?id={id}(id=${categorie.id})}">Modifer</a></button>
+                            <!-- </form> -->
+                            <!-- <form th:action="deleteCategorie" th:method="post">
+                                <button><a href="">Supprimer</a></button>  -->
+                        </td>
+                        
+                    </form>
+                    </tr>
+                    <!-- <tr th:each="categorie: ${list}">
+                        <td><input type="text" th:field="*{libelle}" th:value="${categorie.libelle}"  ></td>
+                        <td>
+                            <button>Modifer</button>
+                            <button><a href="">Supprimer</a></button>
+                        </td>
+                    </tr>  -->
+                </tbody>
+            </table>
+    </div>
+    <a href="getParam">Modifer</a>
+</body>
+
+</html>
