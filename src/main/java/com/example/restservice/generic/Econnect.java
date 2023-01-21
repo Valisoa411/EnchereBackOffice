@@ -9,7 +9,7 @@ public class Econnect {
         Connection con = null;
         try {
             Class.forName("org.postgresql.Driver");
-            con = DriverManager.getConnection("jdbc:postgresql://containers-us-west-29.railway.app:7844/railway","postgres","StHk4wo1W32EkhnxNGPe");
+            con = DriverManager.getConnection("jdbc:postgresql://containers-us-west-29.railway.app:7246/railway","postgres","StHk4wo1W32EkhnxNGPe");
             // con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/enchere","enchere","enchere");
             System.out.println("Connectee ✔✔");
 
